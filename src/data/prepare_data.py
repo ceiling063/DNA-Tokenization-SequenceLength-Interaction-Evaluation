@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 SPECIES = {
     "E_coli": {
         "name": "Escherichia coli",
-        "filename": "GCF_000005845.2_ASM584v2_genomic.fna"  # 手动下载后放在 data/raw/
+        "filename": "GCF_000005845.2_ASM584v2_genomic.fna"  # 手动下载后放在 data24/raw/
     },
     "B_subtilis": {
         "name": "Bacillus subtilis",
@@ -29,8 +29,8 @@ N_SHORT_PER_SPECIES = 500         # 短 reads 每个物种条数（测试用5，
 N_LONG_PER_SPECIES = 50           # 长 contigs 每个物种条数（测试用2，正式改50）
 
 # 输出路径
-DATA_RAW_DIR = "data/raw"
-DATA_PROCESSED_DIR = "data/processed"
+DATA_RAW_DIR = "raw"
+DATA_PROCESSED_DIR = "processed"
 os.makedirs(DATA_RAW_DIR, exist_ok=True)
 os.makedirs(DATA_PROCESSED_DIR, exist_ok=True)
 
