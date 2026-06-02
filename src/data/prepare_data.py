@@ -29,8 +29,8 @@ N_SHORT_PER_SPECIES = 500         # 短 reads 每个物种条数（测试用5，
 N_LONG_PER_SPECIES = 50           # 长 contigs 每个物种条数（测试用2，正式改50）
 
 # 输出路径
-DATA_RAW_DIR = "raw"
-DATA_PROCESSED_DIR = "processed"
+DATA_RAW_DIR = "../../data/raw"
+DATA_PROCESSED_DIR = "../../data/processed"
 os.makedirs(DATA_RAW_DIR, exist_ok=True)
 os.makedirs(DATA_PROCESSED_DIR, exist_ok=True)
 

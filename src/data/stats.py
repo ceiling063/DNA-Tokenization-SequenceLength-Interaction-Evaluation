@@ -13,7 +13,7 @@ plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'Arial']
 plt.rcParams['axes.unicode_minus'] = False
 
 # 路径配置
-DATA_PROCESSED_DIR = "processed"
+DATA_PROCESSED_DIR = ""
 RESULTS_DIR = "../../results/figures"
 Path(RESULTS_DIR).mkdir(parents=True, exist_ok=True)
 
