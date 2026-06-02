@@ -1,1 +1,96 @@
 # DNA-Tokenization-SequenceLength-Interaction-Evaluation
+# DNA 序列物种分类中Tokenization 策略与序列⻓度的交互效应评估
+
+## 项目简介
+
+本项目为 GOODLab 考核项目，旨在系统评估不同 DNA tokenization 策略在物种分类任务中的性能，重点关注策略与序列长度的交互效应。
+
+对比的策略包括：
+- **重叠 k-mer**（stride=1）
+- **Canonical k-mer**（重叠 k-mer + 反向互补归一化）
+- **BPE**（Byte Pair Encoding，基于训练集学习合并规则）
+
+序列长度段：
+- **短 reads**：150–500 bp（模拟测序短片段）
+- **长 contigs**：≥3000 bp（模拟组装后的长片段）
+
+## 目录结构
+
+## 环境配置
+
+### 要求
+- Python 3.10 或 3.11解释器
+- PyCharm
+
+### 安装依赖
+
+## 数据准备
+### 数据来源
+从 NCBI RefSeq 数据库下载两个物种的参考基因组：
+大肠杆菌（Escherichia coli）：GCF_000005845.2
+枯草芽孢杆菌（Bacillus subtilis）：GCF_000009045.1
+### 运行数据准备脚本
+bash
+python src/data/prepare_data.py
+脚本功能：读取本地文件\随机切割短 reads（150-500 bp）和长 contigs（≥3000 bp）\按物种分层划分 train/val/test（比例 70/15/15）
+保存为 CSV 文件到 data/processed/
+### 数据统计
+运行统计脚本生成图表：
+bash
+python src/data/stats.py
+生成的图表保存在 results/figures/：
+短 reads 长度分布直方图\长 contigs 长度分布直方图\各物种样本数量柱状图\序列长度箱线图
+
+## Tokenization 实现
+（待补充，代码实现后填写）
+重叠 k-mer
+参数：k = 3, 4, 5, 6
+stride = 1
+Canonical k-mer
+在重叠 k-mer 基础上，对每个 k-mer 及其反向互补取字典序较小者
+BPE
+基于训练集学习合并规则
+词表大小：200, 500, 1000
+## 模型架构
+（待补充，模型调优后填写）
+##统计 Baseline
+k-mer 频数 + TF-IDF + Logistic Regression / SVM
+## 神经网络
+1D CNN
+
+Embedding dim = 64
+
+3 个卷积块 + 全局平均池化 + 全连接层
+
+参数量：约 200k
+
+## 实验结果
+（待补充，跑完实验后填写）
+
+策略	长度段	准确率	F1	推理时间 (ms/seq)
+重叠 k-mer (k=5)	short	-	-	-
+重叠 k-mer (k=5)	long	-	-	-
+Canonical k-mer (k=5)	short	-	-	-
+Canonical k-mer (k=5)	long	-	-	-
+BPE (vocab=500)	short	-	-	-
+BPE (vocab=500)	long	-	-	-
+## 主要发现
+（待补充）
+
+## 作者
+姓名：[Cailing Chen]
+
+学号/邮箱：[9116125030@email.ncu.edu.cn]
+
+考核项目：GOODLab
+
+## AI 使用声明
+本项目在以下环节使用了 AI 辅助（如 Deepseek）：
+
+代码调试与优化（如数据准备脚本、BPE 实现）
+
+实验报告撰写与润色
+
+PyCharm 配置与 Git 操作指导
+
+所有核心算法（k-mer 切分、Canonical 归一化、BPE 合并规则）均由本人手动实现。
