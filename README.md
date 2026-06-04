@@ -42,7 +42,6 @@ python src/data/stats.py
 短 reads 长度分布直方图\长 contigs 长度分布直方图\各物种样本数量柱状图\序列长度箱线图
 
 ## Tokenization 实现
-（待补充，代码实现后填写）
 重叠 k-mer
 参数：k = 3, 4, 5, 6
 stride = 1
@@ -52,7 +51,56 @@ BPE
 基于训练集学习合并规则
 词表大小：200, 500, 1000
 ## 模型架构
-（待补充，模型调优后填写）
+
+本项目采用 **1D CNN** 作为神经网络架构，用于 DNA 序列的物种分类。
+
+### 模型选择
+
+通过对比实验，我们评估了两种神经网络架构：1D CNN 和 LSTM。实验结果表明，CNN 在准确率和训练效率上均优于 LSTM。
+
+| 架构 | BPE + 短 reads 准确率 | 训练时间 (s) |
+|------|----------------------|-------------|
+| 1D CNN | 93.15% | 680 |
+| LSTM | 49.33% | 672 |
+
+基于以上结果，我们选择 1D CNN 作为最终模型架构。
+
+### 模型结构
+
+CNN 模型由以下层组成：
+
+| 层 | 参数 | 输出形状 |
+|---|------|---------|
+| Embedding | 词表大小 × 64 | (batch, seq_len, 64) |
+| Conv1D (1) | 64 → 128, kernel=3, padding=1 | (batch, 128, seq_len) |
+| ReLU | - | (batch, 128, seq_len) |
+| Conv1D (2) | 128 → 128, kernel=5, padding=2 | (batch, 128, seq_len) |
+| ReLU | - | (batch, 128, seq_len) |
+| Conv1D (3) | 128 → 128, kernel=7, padding=3 | (batch, 128, seq_len) |
+| ReLU | - | (batch, 128, seq_len) |
+| Global Avg Pool | 128 channels → 1 value each | (batch, 128) |
+| Dropout | rate = 0.3 | (batch, 128) |
+| Fully Connected | 128 → 2 | (batch, 2) |
+
+**模型参数总量**：约 200,000 可训练参数
+
+### 训练超参数
+
+| 参数 | 值 |
+|------|-----|
+| Epochs | 30 |
+| Batch Size | 32 |
+| Learning Rate | 0.001 |
+| Optimizer | Adam |
+| Loss Function | CrossEntropyLoss |
+| Random Seed | 42 |
+
+### 最终性能
+
+| Tokenization | 长度 | 准确率 | F1 |
+|-------------|------|--------|-----|
+| BPE | 短 reads | 93.15% | 0.93 |
+| BPE | 长 contigs | 84.21% | 0.84 |
 ##统计 Baseline
 k-mer 频数 + TF-IDF + Logistic Regression / SVM
 ## 神经网络
