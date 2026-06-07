@@ -13,14 +13,25 @@ from sklearn.model_selection import train_test_split
 SPECIES = {
     "E_coli": {
         "name": "Escherichia coli",
-        "filename": "GCF_000005845.2_ASM584v2_genomic.fna"  # 手动下载后放在 data24/raw/
+        "refseq_url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz",
+        "filename": "GCF_000005845.2_ASM584v2_genomic.fna"
     },
     "B_subtilis": {
         "name": "Bacillus subtilis",
+        "refseq_url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/009/045/GCF_000009045.1_ASM904v1/GCF_000009045.1_ASM904v1_genomic.fna.gz",
         "filename": "GCF_000009045.1_ASM904v1_genomic.fna"
+    },
+    "P_aeruginosa": {
+        "name": "Pseudomonas aeruginosa",
+        "refseq_url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/006/765/GCF_000006765.1_ASM676v1/GCF_000006765.1_ASM676v1_genomic.fna.gz",
+        "filename": "GCF_000006765.1_ASM676v1_genomic.fna"
+    },
+    "S_aureus": {
+        "name": "Staphylococcus aureus",
+        "refseq_url": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/013/425/GCF_000013425.1_ASM1342v1/GCF_000013425.1_ASM1342v1_genomic.fna.gz",
+        "filename": "GCF_000013425.1_ASM1342v1_genomic.fna"
     }
 }
-
 SHORT_READ_LEN = (150, 500)      # 短 reads 长度范围
 LONG_CONTIG_LEN = 3000           # 长 contigs 最小长度
 
